@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 // import Dashboard from "./scenes/dashboard";
@@ -31,22 +31,8 @@ function App() {
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             
-            {/* <Routes>
-              {/* <Route path="/" element={<Dashboard />} /> 
-              <Route path="/team" element={<Team />} />
-              <Route path="/contacts" element={<Contacts />} />
-              <Route path="/form" element={<Form />} />
-              <Route path="/bar" element={<Bar />} />
-              <Route path="/pie" element={<Pie />} />
-              <Route path="/line" element={<Line />} />
-              {/* <Route path="/faq" element={<FAQ />} /> 
-              <Route path="/calendar" element={<Calendar />} />
-              <Route path="/school" element={<School />} />
-              <Route path="/schedule" element={<Schedule />} />
-              <Route path="/students" element={<Students />} />
-              <Route path="/year" element={<Year />} />
-
-            </Routes> */}
+            <Outlet />
+            
           </main>
         </div>
       </ThemeProvider>
