@@ -4,7 +4,7 @@ import { useMutation } from 'react-query';
 const loginApi = (data) => async() => {
     
     try{
-        const response = await axios.post('/api/login', data);
+        const response = await axios.post('http://127.0.0.1/api/login', data);
         return response;
     }
     catch(error){
