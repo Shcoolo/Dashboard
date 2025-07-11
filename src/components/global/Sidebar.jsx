@@ -15,6 +15,8 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import LoginIcon from '@mui/icons-material/Login';
 import DomainAddIcon from '@mui/icons-material/DomainAdd';
+import userPhoto from '../../assets/imgs/user.png';
+
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -94,7 +96,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`../../assets/user.png`}
+                  src={userPhoto}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>

@@ -8,6 +8,7 @@ For all related questions and discussions about this project, check out the disc
 
 
 ## Hamza Tasks 
+    Authentication ( Login, Logout , Account )
     students management
     mange acadmic years
     school setting 
@@ -15,4 +16,5 @@ For all related questions and discussions about this project, check out the disc
     Tables ( student, teacher, manger )
 
 ## Dana Tasks 
-
+    Theme
+    Drink Tea

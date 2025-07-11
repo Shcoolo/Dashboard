@@ -1,6 +1,6 @@
 /* @import url('@/index.css'); */
 
-.login-page{
+.page{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,8 +8,7 @@
     background-color: #eee;
 }
 
-.login-form {
-    width: 325px;
+.card {
     min-height: auto;
     box-shadow: 1px 1px 1px 1px black;
     border-radius: 10px;

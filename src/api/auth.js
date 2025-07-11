@@ -1,19 +1,18 @@
-import axios from 'axios';
-import { useMutation } from 'react-query';
+import axiosBase from "./axiosBase";
 
-const loginApi = (data) => async() => {
-    
+
+export const login = async (data) => {
     try{
-        const response = await axios.post('http://127.0.0.1/api/login', data);
+        const response = await axiosBase.post('/accounts/admin-login/', data);
         return response;
     }
     catch(error){
-        console.log(error);
+        console.error(error);
         return error;
     }
 } 
 
 
-export const useLogin = () => {
-  return useMutation(loginApi);
-};
+export const logout = async () => {
+
+}
