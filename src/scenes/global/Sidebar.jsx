@@ -15,6 +15,8 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import LoginIcon from '@mui/icons-material/Login';
 import DomainAddIcon from '@mui/icons-material/DomainAdd';
+import SnowEffect from '../../components/snoweffect';
+
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -232,6 +234,7 @@ const Sidebar = () => {
           </Box>
         </Menu>
       </ProSidebar>
+          <div><SnowEffect count={30} /></div>
     </Box>
   );
 };

@@ -33,3 +33,86 @@ body,
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.ClassWrapper {
+  /* background: #4f5561; */
+  border: 2px solid #3c6bd1;
+  margin-top: 5rem;
+  padding: 2rem;
+  border-radius: 5px;
+}
+
+.ClassForm {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.todo-input {
+  outline: none;
+  background: none;
+  border: 1px solid #3c6bd1;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  width: 300px;
+  color: #fff;
+}
+
+.todo-input::placeholder {
+  color: #ffffff4d;
+}
+
+.todo-btn {
+  background: #3c6bd1;
+  color: #fff;
+  border: none;
+  padding: 0.55rem;
+  cursor: pointer;
+}
+.class-btn {
+  background: #89bd9a;
+  color: #fff;
+  padding: 0.75rem;
+  cursor: pointer;
+  display:flexBox;
+  gap: 400px;
+    justify-content: center;
+
+}
+
+.Classes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #c168cd;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+.snow-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.snowflake {
+  position: absolute;
+  top: -10px;
+  background-color: #658AE2;
+  border-radius: 50%;
+  filter: blur(1px);
+  animation: snowfall linear infinite;
+}
+
+@keyframes snowfall {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    transform: translateY(100vh) translateX(20px);
+  }
+}
