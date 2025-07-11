@@ -1,18 +1,12 @@
 import LoginForm from './LoginForm';
-
+import { LogoCard } from '../../components';
 import './LoginStyle.css';
 
 const LoginPage = () => {
   return (
-
-    <div className="login-page">
-      <div className='login-form'>
-        <img src="../../../assets/logo-blue.png" alt='logo' width='300px'/>
-        <LoginForm /> 
-      
-      </div>
-    </div>
-    
+    <LogoCard width='335px'>
+      <LoginForm />
+    </LogoCard>
   )
 }
 
