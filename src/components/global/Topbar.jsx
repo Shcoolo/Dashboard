@@ -17,7 +17,8 @@ const Topbar = () => {
       {/* SEARCH BAR */}
       <Box
         display="flex"
-        backgroundColor={colors.blueAccent[400]}
+        backgroundColor="transparent" //{colors.blueAccent[400]}
+        border="1px solid"
         borderRadius="3px"
       >
         <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />

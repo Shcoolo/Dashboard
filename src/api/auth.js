@@ -1,4 +1,4 @@
-import axiosBase from "./axiosBase";
+import axiosBase from "./Base/axiosBase";
 
 
 export const login = async (data) => {

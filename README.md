@@ -6,15 +6,19 @@ Video: https://www.youtube.com/watch?v=wYpCWwD1oz0
 
 For all related questions and discussions about this project, check out the discord: https://discord.gg/2FfPeEk2mX
 
+## Hamza's tasks
 
-## Hamza 's tasks
-    Management academic year
-    Manage students
-    School information
-    Schedule for teacher and students
-    Authentication &update profile
+    Management academic year: Design✅ Pro✅ Api✅ fix
+        Terms    : // how can I show terms of year currently only
+        Classes  : 
+        Sections :
+    Manage students [ Design✅, Pro , Api , fix ]
+    School information []
+    Schedule for teacher and students []
+    Authentication &update profile [ Login, ]
 
 ## Dana's Tasks
+
     Manage teachers
     Manage administrators
     Manage events in calendar
@@ -23,5 +27,6 @@ For all related questions and discussions about this project, check out the disc
     Drink Coffee
 
 ## extra :
+
     activities
     electronic library

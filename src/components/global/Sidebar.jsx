@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -16,6 +16,8 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import LoginIcon from '@mui/icons-material/Login';
 import DomainAddIcon from '@mui/icons-material/DomainAdd';
 import userPhoto from '../../assets/imgs/user.png';
+import { pages } from "./Pages";
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -123,6 +125,36 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             /> */}
+
+            {
+              /* by map  */
+              pages.map( (category, index) => (
+                <React.Fragment key={index} >
+                  <Typography
+                      variant="h6"
+                      color={colors.blueAccent[500]}
+                      sx={{ m: "15px 0 5px 20px" }}
+                    >
+                      {category.name}
+                    </Typography>
+                    {
+                      category.property.map( (page, i) => {
+                        const IconComponent = page.icon;
+                        return (
+                          <Item 
+                            key={i}
+                            title={page.title}
+                            to={`/${page.path}`}
+                            icon={<IconComponent />}
+                            selected={selected}
+                            setSelected={setSelected}
+                          />
+                        )}
+                      )
+                    }
+                  </React.Fragment>
+              ))
+            }
 
             <Typography
               variant="h6"

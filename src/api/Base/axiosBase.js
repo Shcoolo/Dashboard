@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "../utils/storage";
+import { getToken } from "../../utils/storage";
 import { toast } from 'react-toastify';
 
 // axios stacture with base url for all program

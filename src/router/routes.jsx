@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import { ForgetPassword, Home, Login, NotFound } from "../pages";
+import { AcademicYears, ForgetPassword, Home, Login, NotFound, SchoolInformation, StudentForm, StudentsList, Terms } from "../pages";
 import Team from "../scenes/team";
 import Contacts from "../scenes/contacts";
 import Form from "../scenes/form";
@@ -22,6 +22,26 @@ const router = createBrowserRouter([
       {
         index:true,
         element: <Home />
+      },
+      {
+        path: "/academic-years",
+        element: <AcademicYears />
+      },
+      {
+        path: "/academic-terms",
+        element: <Terms />
+      },
+      {
+        path: '/students',
+        element: <StudentsList />,
+      },
+      {
+        path: '/students/add',
+        element: <StudentForm />
+      },
+      {
+        path: '/information',
+        element: <SchoolInformation />
       },
       {
         path: "/team",
