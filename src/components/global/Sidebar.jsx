@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -17,7 +17,8 @@ import LoginIcon from '@mui/icons-material/Login';
 import DomainAddIcon from '@mui/icons-material/DomainAdd';
 import userPhoto from '../../assets/imgs/user.png';
 import { pages } from "./Pages";
-
+import { useSelector } from "react-redux";
+import logo from '../../assets/logo.png';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -42,6 +43,12 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+
+  const { user } = useSelector(state => state.auth);
+  const fullName = useMemo(() => {
+    if (!user) return '';
+    return `${user.first_name || ''} ${user.last_name || ''}`.trim();
+  }, [user]);
 
   return (
     <Box
@@ -82,7 +89,8 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.redAccent[600]}>
-                  ADMINIS
+                  {/* ADMINIS */}
+                  {/* <img src={logo} alt="logo"width='150px' /> */}
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -109,9 +117,10 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                Manager                </Typography>
+                {fullName || "Manager"}                
+                </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Super Admin
+                  {user?.role??"Admin"}
                 </Typography>
               </Box>
             </Box>

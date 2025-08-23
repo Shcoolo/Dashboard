@@ -1,21 +1,23 @@
-import { LockOutline, PhoneAndroid, Visibility, VisibilityOff } from '@mui/icons-material'
-import { Button, CircularProgress, IconButton, InputAdornment, TextField } from '@mui/material'
+import { LockOutline, Visibility, VisibilityOff } from '@mui/icons-material'
+import { Alert, Box, Button, CircularProgress, IconButton, InputAdornment, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { useSendOTP } from '../../api/sendOTP';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { object, string } from 'yup';
+import { object, ref, string } from 'yup';
+import { useSetPassword } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 
 const initialValues = {
-  phone_number: '',
-  password: ''
+  new_password: '',
+  confirm_password: ''
 };
 
-const ChangePassword = () => {
+const ChangePassword = ({setOrder, phone_number}) => {
 
   const [showPassword, setShowPassword] = useState(false);
-  const { isLoading, mutate } = useSendOTP();
+  const { isPending, mutate, isSuccess, isError, error } = useSetPassword();
+  const navigate = useNavigate();
       
   const handleTogglePassword = () => {
     setShowPassword((prev) => !prev);
@@ -23,23 +25,35 @@ const ChangePassword = () => {
    
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(object({
-        phone_number: string().required("Phone number is required")
-            .matches(/^[0-9]{10}$/, "Enter a valid phone number, start with 09")
-        })),
+      new_password: string()
+        .required("Password is required")
+        .min(8, "Password must be at least 8 characters"),
+      confirm_password: string()
+        .required("Password Confirmation is required")
+        .oneOf([ref("new_password")], "The Confirm Password does not match the password")  
+    })),
     defaultValues: initialValues
   });
       
   const formSubmit = (data) => {
+    data = {...data, phone_number: phone_number}
     mutate(data);
-    console.log(data);
   };
+
+  if(isSuccess){
+    setOrder(1);
+    navigate('/');
+  }
       
   
 
   return (
     <form onSubmit={handleSubmit(formSubmit)}>
+
+      { isError && <Alert severity='error'>{error}</Alert> }
+
         <Controller
-          name='password'
+          name='new_password'
           control={control}
           render={({ field }) => (
             <TextField
@@ -47,8 +61,8 @@ const ChangePassword = () => {
               placeholder='Enter A New Password'
               type={showPassword ? 'text' : 'password'}
               sx={{ mt: 1, width: '100%' }}
-              error={!!errors.password}
-              helperText={errors.password?.message}
+              error={!!errors.new_password}
+              helperText={errors.new_password?.message}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -69,7 +83,7 @@ const ChangePassword = () => {
       />
 
       <Controller
-          name='confirm password'
+          name='confirm_password'
           control={control}
           render={({ field }) => (
             <TextField
@@ -77,8 +91,8 @@ const ChangePassword = () => {
               placeholder='Confirm Password'
               type={showPassword ? 'text' : 'password'}
               sx={{ mb: 2, mt:1, width: '100%' }}
-              error={!!errors.password}
-              helperText={errors.password?.message}
+              error={!!errors.confirm_password}
+              helperText={errors.confirm_password?.message}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -99,7 +113,7 @@ const ChangePassword = () => {
       />
 
       <Button variant='contained' type="submit" sx={{ width: "100%", mb:3 }}>
-        {isLoading ? <CircularProgress color='white' size={'25px'}/> : "Set A New Password"}
+        {isPending ? <CircularProgress color='white' size={'25px'}/> : "Set A New Password"}
       </Button>
     </form>
   )

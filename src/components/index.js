@@ -6,3 +6,5 @@ export { default as ToastNotification } from './ToastNotificaton.jsx'
 export { default as ConfirmationDialoge } from './dialog/ConfirmationDialoge.jsx';
 export { default as TitleBar } from './TitleBar.jsx'
 export { default as TableComponent } from './TableComponent.jsx';
+export { default as TermsDialog } from './dialog/TermsDialog.jsx';
+export { default as TermDetailsDialog } from './dialog/TermDetailsDialog.jsx';

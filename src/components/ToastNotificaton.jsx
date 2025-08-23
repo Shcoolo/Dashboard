@@ -1,24 +1,25 @@
 import { ToastContainer } from 'react-toastify'
-import { themeSettings } from '../theme';
+import { useTheme } from '@mui/material/styles';
 
 const ToastNotificaton = () => {
-
-    const mode = themeSettings.mode??"light";
+  const theme = useTheme();
+  const mode = theme.palette.mode || 'light';
 
   return (
-      <ToastContainer 
-        position="top-right"    
-        autoClose={5000}         
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme={mode}
-      />
-  )
+    <ToastContainer
+      position="bottom-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme={mode}
+      style={{ zIndex: 9999 }}
+    />
+  );
 }
 
 export default ToastNotificaton

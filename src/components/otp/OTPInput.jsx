@@ -1,12 +1,18 @@
 import React, { useRef, useState } from 'react';
-import { Box, TextField, Typography, Stack } from '@mui/material';
+import { Box, TextField, Typography, Stack, CircularProgress } from '@mui/material';
+import { useVerifyOTP } from '../../hooks/useAuth';
 
-const OTPInput = () => {
+const OTPInput = ({ phone_number, purpose , setOrder}) => {
 
-  const otpLength = 5;
+  const { mutate, isSuccess, isPending } = useVerifyOTP(); 
+
+  const otpLength = 6;
   const [otp, setOtp] = useState(Array(otpLength).fill(''));
   const inputsRef = useRef([]);
-
+  const initialValues = {
+    phone_number: phone_number,
+    purpose: purpose
+  };
     const handleChange = (e, index) => {
         const value = e.target.value;
 
@@ -32,8 +38,22 @@ const OTPInput = () => {
   };
 
   const handleSubmit = (code) => {
-    console.log('OTP Code Submitted:', code);
+    const data = { ...initialValues, otp_code: code};
+    mutate(data);
+
   };
+
+  if(isSuccess){
+    setOrder(3);
+  }
+
+  if(isPending){
+    return(    
+      <Box sx={{ display: 'flex' , minHeight: '100px'}}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" mt={4}>

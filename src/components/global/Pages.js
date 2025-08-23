@@ -1,29 +1,120 @@
-import { PeopleOutlined, Settings } from '@mui/icons-material'
+import { Home, PeopleOutlined, Settings } from '@mui/icons-material'
 
 export const pages = [
+    // home
     {
-        name: "Hamza's Tasks",
         property: [
             {
-                title: 'Academic years',
-                path: 'academic-years',
-                icon: PeopleOutlined
+                title: 'Home Page',
+                path: '',
+                icon: Home,
+            }
+        ]
+    },
+    {
+        name: 'School Management',
+        property: [
+            {
+                title: 'School profile',
+                path: 'information',
+                icon: Settings
             },
+        ]
+    },
+    // management
+    {
+        name: 'Management',
+        property: [
             {
                 title: 'Students Managment',
                 path: 'students',
                 icon: PeopleOutlined
             },
             {
-                title: 'School Information',
-                path: 'information',
-                icon: Settings
-            },
+                title: 'Teachers Management',
+                path: 'teachers',
+                icon: PeopleOutlined
+            }, 
+        ]
+    },
+    // academices
+    {
+        name: "Academices",
+        property: [
+            {
+                title: 'Academic years',
+                path: 'academic-years',
+                icon: PeopleOutlined
+            }, 
             {
                 title: 'Academic Terms',
                 path: 'academic-terms',
                 icon: PeopleOutlined
             },
+            {
+                title: 'Classes',
+                path: 'classes',
+                icon: PeopleOutlined
+            },
+            {
+                title: 'Sections',
+                path: 'sections',
+                icon: PeopleOutlined
+            }, 
+
+        ]
+    },
+    // admin
+    {
+        name: "admin",
+        property: [
+            {
+                title: 'Attendance',
+                path: 'attendance',
+                icon: PeopleOutlined,
+            },
+            {
+                title: 'Subjects',
+                path: 'subjects',
+                icon: PeopleOutlined
+            }, 
+            {
+                title: 'Exams & Grades',
+                path: 'exams',
+                icon: PeopleOutlined,
+            },
+            {
+                title: 'Library',
+                path: 'library',
+                icon: PeopleOutlined
+            }
+        ]
+    },
+    // communication
+    {
+        name: "Communication",
+        property: [
+            {
+                title: 'Announcements',
+                path: 'announcements',
+                icon: PeopleOutlined,
+            },
+        ]
+    },
+    // settings
+    {
+        name: "Settings",
+        property: [
+            {
+                title: 'Adminstrators',
+                path: 'adminstrators',
+                icon: PeopleOutlined
+            },  
+            {
+                title: 'Profile',
+                path: 'profile',
+                icon: PeopleOutlined,
+            } 
         ]
 
     },

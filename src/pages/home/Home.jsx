@@ -1,8 +1,12 @@
 import React from 'react'
+import DashboardOverview from './DashboardOverview'
+import { Box } from '@mui/material'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <Box>
+      <DashboardOverview />
+    </Box>
   )
 }
 

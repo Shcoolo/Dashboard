@@ -21,7 +21,7 @@ export const tokens = (mode) => ({
           200: "#a1a4ab",
           300: "#727681",
           400: "#1A1D21", //"#1F2A40",
-          500: "#121417", //"#141b2d",
+          500: "#658ae2", //"#121417", //"#141b2d",
           600: "#101624",
           700: "#0c101b",
           800: "#080b12",
@@ -60,6 +60,16 @@ export const tokens = (mode) => ({
           800: "#2a2d64",
           900: "#151632",
         },
+        successAccent: {
+          100: "#81c784",
+          200: "#1b5e20",
+          300: "#66bb6a",
+        },
+        errorAccent: {
+          100: "#ef9a9a",
+          200: "#b71c1c",
+          300: "#ef5350",
+        },
       }
     : {
         grey: {
@@ -78,7 +88,7 @@ export const tokens = (mode) => ({
           200: "#080b12",
           300: "#0c101b",
           400: "#F5F8FA", //"#f2f0f0", // manually changed
-          500: "#141b2d",
+          500: "#658ae2", //"#141b2d",
           600: "#1F2A40",
           700: "#727681",
           800: "#a1a4ab",
@@ -117,6 +127,16 @@ export const tokens = (mode) => ({
           800: "#c3c6fd",
           900: "#e1e2fe",
         },
+        successAccent: {
+          100: "#1b5e20",
+          200: "#e8f5e9",
+          300: "#66bb6a",
+        },
+        errorAccent: {
+          100: "#b71c1c",
+          200: "#ffebee",
+          300: "#ef5350",
+        },
       }),
 });
 
@@ -141,13 +161,13 @@ export const themeSettings = (mode) => {
               light: colors.grey[100],
             },
             background: {
-              default: colors.primary[500],
+              default: "#121417",
             },
           }
         : {
             // palette values for light mode
             primary: {
-              main: colors.primary[100],
+              main: colors.primary[500],
             },
             secondary: {
               main: colors.greenAccent[500],
@@ -163,30 +183,30 @@ export const themeSettings = (mode) => {
           }),
     },
     typography: {
-      fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+      fontFamily: ["Tajawal", "Source Sans Pro"].join(","),
       fontSize: 12,
       h1: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontFamily: ["Tajawal", "Source Sans Pro"].join(","),
         fontSize: 40,
       },
       h2: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontFamily: ["Tajawal", "Source Sans Pro"].join(","),
         fontSize: 32,
       },
       h3: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontFamily: ["Tajawal", "Source Sans Pro"].join(","),
         fontSize: 24,
       },
       h4: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontFamily: ["Tajawal", "Source Sans Pro"].join(","),
         fontSize: 20,
       },
       h5: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontFamily: ["Tajawal", "Source Sans Pro"].join(","),
         fontSize: 16,
       },
       h6: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontFamily: ["Tajawal", "Source Sans Pro"].join(","),
         fontSize: 14,
       },
     },

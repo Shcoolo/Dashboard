@@ -5,7 +5,7 @@ const LinkTrans = ({to, text, textAlign}) => {
     <Link to={to} 
         style={{textDecoration: 'none', 
             textAlign: {textAlign},
-            width: '100%'    
+            // width: '100%'    
         }}>
         <p>{text}</p>
     </Link>

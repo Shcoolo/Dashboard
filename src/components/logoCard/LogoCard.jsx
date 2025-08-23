@@ -1,3 +1,4 @@
+import { ToastNotification } from '..';
 import logo from '../../assets/imgs/logo-blue.png'
 import './LogoCardStyle.css';
 
@@ -5,10 +6,12 @@ import './LogoCardStyle.css';
 const LogoCard = ({children, width}) => {
   return (
     <div className="page">
-      <div className='card' style={{ width: width}}>
+      <div className='card' style={{ width: width }}>
         <img src={logo} alt='logo' width='300px'/>
           {children}
       </div>
+
+      <ToastNotification />
     </div>
     
   )

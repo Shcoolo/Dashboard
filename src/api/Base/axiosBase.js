@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 // axios stacture with base url for all program
 const axiosBase = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api',
+    baseURL: 'http://127.0.0.1:8000/en/api',
     headers: {
         'Content-Type': 'application/json',
     },
@@ -18,19 +18,21 @@ axiosBase.interceptors.request.use( (config) => {
 });
 
 // show message of respnse in notification is called toast
-axiosBase.interceptors.response.use( 
-    response => {
-        const { message } = response ||  { message : "Success Response" };
-        if(message){
-            toast['success'](message);
-        }
-        return response;
-    },
-    error => {
-        const msg = error?.message || "Error Response";
-        toast.error(msg);
-        return Promise.reject(error);  
+axiosBase.interceptors.response.use(
+  response => {
+    const msg = response?.data?.message;
+    if(msg){
+      toast.success(msg);
     }
+     return response;
+  },
+  error => {
+    console.log('error' + error);
+    const serverMessage = error?.response?.data?.detail || error?.response?.data?.message;
+    const msg = serverMessage || error?.message || 'Error Response';
+    toast.error(msg);
+    return Promise.reject(error);
+  }
 );
 
 export default axiosBase;

@@ -11,10 +11,11 @@ import {
   IconButton,
   CircularProgress,
   Stack,
-  Tooltip
+  Tooltip,
+  Alert
 } from "@mui/material";
 import { Add, Delete, Edit, InfoOutline, RemoveRedEyeOutlined, ToggleOff, ToggleOn } from "@mui/icons-material";
-import { ConfirmationDialoge, TitleBar } from "../../components";
+import { ConfirmationDialoge, TitleBar, TermsDialog, TermDetailsDialog } from "../../components";
 import { useState } from "react";
 import { useAddYear, useDeleteYear, useUpdateYear, useYears } from "../../hooks/useYears";
 import { toast } from "react-toastify";
@@ -36,6 +37,10 @@ const AcademicYears = () => {
       open: false
     }))
     setDetailsDialogeConfig( prev => ({
+      ...prev,
+      open: false
+    }))
+    setTermsDialogConfig( prev => ({
       ...prev,
       open: false
     }))
@@ -62,6 +67,13 @@ const AcademicYears = () => {
     cancelText: "Cancel",
     confirmColor: "primary",
     loading: false,
+  });
+
+  const [termsDialogConfig, setTermsDialogConfig] = useState({
+    open: false,
+    onClose: closeDialoge,
+    yearId: null,
+    yearName: "",
   });
 
 
@@ -171,6 +183,17 @@ const AcademicYears = () => {
     }))
   }
 
+  // terms dialog operations
+  const handleDialogTerms = (year) => {
+    setTermsDialogConfig(prev => ({
+      ...prev,
+      open: true,
+      yearId: year.id,
+      yearName: year.name,
+      yearStatus: year.is_current
+    }));
+  };
+
 
   if (isLoading) return (
     <div style={{ minHeight: "75vh", display: 'flex', justifyContent: "center", alignItems: "center"}}>
@@ -179,12 +202,10 @@ const AcademicYears = () => {
   );
 
   if (isError) {
-    console.error(error);
     return(
-      <div>
-        <h3>Error loading years</h3>
-        <p>{error}</p>
-      </div>
+      <Box p={3}>
+        <Alert severity="error">{error?.message}</Alert>
+      </Box>
     );
   }
 
@@ -236,13 +257,13 @@ const AcademicYears = () => {
                   </Tooltip>
                   <Tooltip title="terms of a year" arrow>
                     <IconButton 
-                      onClick={() => navigate('/academic-terms')} 
+                      onClick={() => handleDialogTerms(year)} 
                     ><InfoOutline fontSize="large"/></IconButton>
                   </Tooltip>
                   <Tooltip title="year details" arrow>
                     <IconButton 
                       style={{ color: '#ffd505', border: '2px solid #ffd505', margin: '0 5px', padding: '5px'}} 
-                      onClick={() => {}}
+                      onClick={() => navigate(`/calendar`)}
                     ><RemoveRedEyeOutlined fontSize="small" /></IconButton>
                   </Tooltip>
                   <Tooltip title="Edit year" arrow>
@@ -288,6 +309,14 @@ const AcademicYears = () => {
       cancelText={detailsDialogeConfig.cancelText}
       confirmColor={detailsDialogeConfig.confirmColor}
       loading={detailsDialogeConfig.loading}
+    />
+
+    <TermsDialog
+      open={termsDialogConfig.open}
+      onClose={termsDialogConfig.onClose}
+      yearId={termsDialogConfig.yearId}
+      yearName={termsDialogConfig.yearName}
+      yearStatus={termsDialogConfig?.yearStatus}
     />
 
     </>

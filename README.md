@@ -1,32 +1,60 @@
 # React Admin Dashboard
+    School Management System (short description)
 
-Build a COMPLETE React Admin Dashboard App | React, Material UI, Data Grid, Light & Dark Mode
+# Install Project
+    node (download)
+    git clone ...
+    // to run project
+    ..npm start
 
-Video: https://www.youtube.com/watch?v=wYpCWwD1oz0
+## Core Features
 
-For all related questions and discussions about this project, check out the discord: https://discord.gg/2FfPeEk2mX
+    Authentication
+        Login           ✅
+        Logout          ✅ 
+        Profile    Show ✅ Edit
+        Forget Password ✅
+        Confirm Account ✅
 
-## Hamza's tasks
+    Academic 
+        Years    ✅ => Calendar
+        Terms    ✅ =>
+        Classes  ✅ => Subject 
+        Sections /api => Table (Now) [ show, حصص , table schedule ]
 
-    Management academic year: Design✅ Pro✅ Api✅ fix
-        Terms    : // how can I show terms of year currently only
-        Classes  : 
-        Sections :
-    Manage students [ Design✅, Pro , Api , fix ]
-    School information []
-    Schedule for teacher and students []
-    Authentication &update profile [ Login, ]
+    Management 
+        Adminstrators /api ( admin, manager)
+        Teachers /api
+        Students /api => Report ( subject , examps ,  attendce ,...)
 
-## Dana's Tasks
+    General 
+        School Information /api
+    
+    Sehedules 
+        Teacher // Calendar like for the manager
+        Sections for Student ()
+        Calender
 
-    Manage teachers
-    Manage administrators
-    Manage events in calendar
-    Manage degrees for all students
-    Manage absence
-    Drink Coffee
+    Admin
+        Examps // Create => subject
+        Degrees // Entry => Student in a Section
+        Absence // Entry => Student in a Section
+        Subjects // => Term
+        
+## Extra Features 
 
-## extra :
+    Localization 
+        En ✅
+        Ar 
 
-    activities
-    electronic library
+    Activities  // non
+
+    Alectronic library  // Upload file for evrey subject
+
+    Commencations  Select one Student , or All Student , Select All Teacher, or Teacher
+
+    Shows  // analiysis
+
+    Reports  // attendce, degrees
+
+<!-- ## Dana's Tasks -->

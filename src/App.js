@@ -4,6 +4,7 @@ import Topbar from "./components/global/Topbar";
 import Sidebar from "./components/global/Sidebar";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
+import { ToastNotification } from "./components";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -17,9 +18,9 @@ function App() {
           <Sidebar isSidebar={isSidebar} />
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
-            
+
+            <ToastNotification />
             <Outlet />
-            
           </main>
         </div>
       </ThemeProvider>

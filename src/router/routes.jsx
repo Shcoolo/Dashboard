@@ -1,6 +1,25 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import { AcademicYears, ForgetPassword, Home, Login, NotFound, SchoolInformation, StudentForm, StudentsList, Terms } from "../pages";
+import { AcademicYears, 
+  AdminstratorsList, 
+  ChangePassword, 
+  ClassesList, 
+  ForgetPassword, 
+  Home, 
+  Login, 
+  NotFound, 
+  ProfilePage,
+  SchoolInformation, 
+  SectionDetailsPage, 
+  SectionsList, 
+  StudentsList, 
+  SubjectDetailPage, 
+  SubjectsList, 
+  TeachersList, 
+  Terms, 
+  YearCalender
+} from "../pages";
+
 import Team from "../scenes/team";
 import Contacts from "../scenes/contacts";
 import Form from "../scenes/form";
@@ -28,6 +47,10 @@ const router = createBrowserRouter([
         element: <AcademicYears />
       },
       {
+        path: "/academic-years/:id", 
+        element: <YearCalender />
+      },
+      {
         path: "/academic-terms",
         element: <Terms />
       },
@@ -36,13 +59,47 @@ const router = createBrowserRouter([
         element: <StudentsList />,
       },
       {
-        path: '/students/add',
-        element: <StudentForm />
-      },
-      {
         path: '/information',
         element: <SchoolInformation />
       },
+      {
+        path: '/classes',
+        element: <ClassesList />
+      },
+      {
+        path: '/sections',
+        element: <SectionsList />,
+      },
+      {
+        path: '/section/:id',
+        element: <SectionDetailsPage />,
+      },
+      {
+        path: '/subjects',
+        element: <SubjectsList />
+      },
+      {
+        path: '/subject/:id',
+        element: <SubjectDetailPage />
+      },
+      {
+        path: '/teachers',
+        element: <TeachersList />
+      },
+      {
+        path: '/adminstrators',
+        element: <AdminstratorsList />
+      },
+      {
+        path: '/profile',
+        element: <ProfilePage />
+      },
+
+
+
+
+
+      // old pages
       {
         path: "/team",
         element: <Team />
@@ -78,8 +135,17 @@ const router = createBrowserRouter([
     element: <Login />
   },
   {
-    path: 'forget-password',
-    element: <ForgetPassword />
+    path: 'auth',
+    children:[
+      {
+        path: 'forget-password',
+        element: <ForgetPassword />
+      },
+      {
+        path: 'confirm-account',
+        element: <ForgetPassword />
+      }
+    ],
   },
   {
     path: '*',
