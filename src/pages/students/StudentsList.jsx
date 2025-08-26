@@ -1,11 +1,13 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Chip, Stack } from "@mui/material";
 import { ConfirmationDialoge, TableComponent, TitleBar } from "../../components";
-import { Add, Delete, Edit, Search } from "@mui/icons-material";
+import { Add, Cancel, CheckCircle, Delete, Edit, RemoveRedEyeOutlined, Search } from "@mui/icons-material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useAddStudent, useStudents, useDeleteStudent, useUpdateStudent } from "../../hooks/useStudents";
 import { useState } from "react";
 import StudentDetailsDialoge from "./StudentDetailsDialoge";
 import StudentsAnalytics from "./StudentAlalysis";
+import { useNavigate } from "react-router-dom";
+import { blue, pink } from "@mui/material/colors";
 
 export default function StudentsList() {
 
@@ -33,6 +35,7 @@ export default function StudentsList() {
     cancelText: "Cancel",
     confirmColor: "primary",
     loading: false,
+    error: null,
   }
 
   const closeDialoge = () => {
@@ -40,9 +43,8 @@ export default function StudentsList() {
     setDetailsDialogeConfig({insialDialogDetails, onClose: closeDialoge });
   };
 
-  const [dialogeConfig, setDialogeConfig] = useState({inisialDialogConfig, onClose: closeDialoge});
-  const [detailsDialogeConfig, setDetailsDialogeConfig] = useState({insialDialogDetails, onClose: closeDialoge});
-
+  const [dialogeConfig, setDialogeConfig] = useState({ ...inisialDialogConfig, onClose: closeDialoge});
+  const [detailsDialogeConfig, setDetailsDialogeConfig] = useState({ ...insialDialogDetails, onClose: closeDialoge});
 
   const handleDelete = (studentInfo) => {
     setDialogeConfig( prev => ({
@@ -76,19 +78,57 @@ export default function StudentsList() {
       ...prev,
       open: true,
       title: "Add Student",
-      onConfirm: (data) => { addStudentMutation.mutate({data: data }, {onSuccess: closeDialoge}) },
+      onConfirm: (data) => { addStudentMutation.mutate({data}, {onSuccess: closeDialoge}) },
       confirmText: "Save",
       confirmColor: 'info',
       loading: addStudentMutation.isPending,
     }))
   };
 
+  const navigate = useNavigate();
+
   const rows = students;
+
 
   const columns = [
     { field: 'id', headerName:'ID', width: 70 , align: 'center', headerAlign: 'center'},
-    { field: 'name', headerName: 'Name', flex: 1, headerAlign: 'center', align: 'center'},
-    { field: 'description', headerName: 'Description', flex: 2, headerAlign: 'center', align: 'center'},
+    { field: 'first_name', headerName: 'First Name', flex: 1, headerAlign: 'center', align: 'center'},
+    { field: 'last_name', headerName: 'Last Name', flex: 1, headerAlign: 'center', align: 'center'},
+    { field: 'phone_number', headerName: 'Phone Number', flex: 1, headerAlign: 'center', align: 'center'},
+    { field: 'gender', headerName: 'Gender', flex: 1, headerAlign: 'center', align: 'center',
+      renderCell: (params) => {
+      const isMale = params.value === "Male";
+      return (
+        <Chip 
+          label={params.value} 
+          color={isMale ? blue[500]:pink[500]} 
+          variant="outlined"
+          sx={{ fontWeight: "bold", px: 1.5 }}
+        />
+      );
+    }
+    },
+    { field: 'student_class', headerName: 'Class', flex: 1, headerAlign: 'center', align: 'center'},
+    { field: 'section', headerName: 'Section', flex: 1, headerAlign: 'center', align: 'center'},
+    {
+      field: "register_status",
+      headerName: "Register Status",
+      headerAlign: 'center',
+      align: 'center',
+      felx: 1,
+      renderCell: (params) => {
+        const status = params?.value === 'Accepted';
+        return (
+         <Chip
+            icon={status?<CheckCircle />:<Cancel />}
+            label={params.value}
+            color={status?"success":"error"}
+            variant="outlined"
+            sx={{ mt: 1 }}
+        />
+        );
+      },
+    },
     {
       field: "actions",
       headerName: "Actions",
@@ -96,6 +136,11 @@ export default function StudentsList() {
       width: 100,
       flex: 2,
       getActions: (params) => [
+        <GridActionsCellItem
+          icon={<RemoveRedEyeOutlined sx={{color: 'white', border: '1px solid white', borderRadius: '50%', fontSize: 30, p: 0.5 }} />}
+          label="Show Detials"
+          onClick={() => navigate(`/student/${params.row.id}`)}
+        />,
         <GridActionsCellItem
           icon={<Edit sx={{color: 'blue', border: '1px solid blue', borderRadius: '50%', fontSize: 30, p: 0.5 }}/>}
           label="Edit"
@@ -142,7 +187,7 @@ export default function StudentsList() {
         loading={dialogeConfig.loading}
       />
 
-  <StudentDetailsDialoge
+    <StudentDetailsDialoge
       open={detailsDialogeConfig.open}
       onClose={detailsDialogeConfig.onClose}
       onConfirm={detailsDialogeConfig.onConfirm}
@@ -152,6 +197,7 @@ export default function StudentsList() {
       cancelText={detailsDialogeConfig.cancelText}
       confirmColor={detailsDialogeConfig.confirmColor}
       loading={detailsDialogeConfig.loading}
+      // backendErrors={dialogeConfig.error}
     />
 
     </Box>

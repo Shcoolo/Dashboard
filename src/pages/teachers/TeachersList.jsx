@@ -1,14 +1,16 @@
 import { Box, Stack } from "@mui/material";
 import { ConfirmationDialoge, TableComponent, TitleBar } from "../../components";
-import { Add, Delete, Edit } from "@mui/icons-material";
+import { Add, Delete, Edit, RemoveRedEyeOutlined } from "@mui/icons-material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useAddTeacher, useTeachers, useDeleteTeacher, useUpdateTeacher } from "../../hooks/useTeachers";
 import { useState } from "react";
 import TeacherDetailsDialoge from "./TeacherDetailsDialoge";
+import { useNavigate } from "react-router-dom";
 
 export default function TeachersList() {
 
-  
+  // defines 
+  const navigate = useNavigate();
   const { data: teachers, isLoading, isError, error } = useTeachers();
   const addTeacherMutation = useAddTeacher();
   const deleteTeacherMutation = useDeleteTeacher();
@@ -49,7 +51,7 @@ export default function TeachersList() {
       open: true,
       onConfirm: () => { deleteTeacherMutation.mutate({id: teacherInfo.row.id },{ onSuccess: closeDialoge })},
       title: "Delete Teacher?",
-      description: `Are you sure of delete teacher ${teacherInfo.row.name}`,
+      description: `Are you sure of delete teacher ${teacherInfo.row.full_name}`,
       confirmText: "Delete",
       cancelText: "Cancel",
       confirmColor: "error",
@@ -82,12 +84,18 @@ export default function TeachersList() {
     }))
   };
 
-  const rows = teachers;
+  const apiRows = teachers;
+  const rows = apiRows?.map( (row) => (
+    {
+      ...row,
+      id: row.user_id
+    }
+  ))
 
   const columns = [
     { field: 'id', headerName:'ID', width: 70 , align: 'center', headerAlign: 'center'},
-    { field: 'name', headerName: 'Name', flex: 1, headerAlign: 'center', align: 'center'},
-    { field: 'description', headerName: 'Description', flex: 2, headerAlign: 'center', align: 'center'},
+    { field: 'full_name', headerName: 'Name', flex: 1, headerAlign: 'center', align: 'center'},
+    { field: 'specialization', headerName: 'Specialization', flex: 2, headerAlign: 'center', align: 'center'},
     {
       field: "actions",
       headerName: "Actions",
@@ -95,6 +103,11 @@ export default function TeachersList() {
       width: 100,
       flex: 2,
       getActions: (params) => [
+        <GridActionsCellItem
+            icon={<RemoveRedEyeOutlined sx={{color: 'white', border: '1px solid white', borderRadius: '50%', fontSize: 30, p: 0.5 }} />}
+            label="Show Detials"
+            onClick={() => navigate(`/teacher/${params.row.id}`)}
+          />,
         <GridActionsCellItem
           icon={<Edit sx={{color: 'blue', border: '1px solid blue', borderRadius: '50%', fontSize: 30, p: 0.5 }}/>}
           label="Edit"

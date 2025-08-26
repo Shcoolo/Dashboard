@@ -61,6 +61,11 @@ export const pages = [
                 path: 'sections',
                 icon: PeopleOutlined
             }, 
+            {
+                title: 'Time Slots',
+                path: 'time-slots',
+                icon: PeopleOutlined,
+            },
 
         ]
     },

@@ -28,6 +28,9 @@ export const useAddStudent = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['students'] });
     },
+    onError: (error) => {
+      console.log(error)
+    }
   });
 };
 

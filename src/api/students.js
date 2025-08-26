@@ -2,7 +2,7 @@ import axiosBase from "./Base/axiosBase";
 
 export const indexStudents = async() => {
     try{
-        const response = await axiosBase.get(`/students/`);
+        const response = await axiosBase.get(`/students/students-list/`);
         return response;
     }
     catch(error){
@@ -12,7 +12,7 @@ export const indexStudents = async() => {
 
 export const storeStudent = async (data) => {
     try{
-        const response = await axiosBase.post(`/students/`, data);
+        const response = await axiosBase.post(`/students/add-student/`, data);
         return response;
     }
     catch(error){

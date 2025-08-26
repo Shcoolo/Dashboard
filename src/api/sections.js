@@ -35,7 +35,7 @@ export const storeSection = async (data) => {
 
 export const showSection = async (sectionId) => {
     try{
-        const response = await axiosBase.get(`/section/Sections/${sectionId}/`);
+        const response = await axiosBase.get(`/class/sections/${sectionId}/`);
         return response;
     }
     catch(error){

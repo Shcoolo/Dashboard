@@ -25,7 +25,7 @@
     Management 
         Adminstrators /api ( admin, manager)
         Teachers /api
-        Students /api => Report ( subject , examps ,  attendce ,...)
+        Students  index✅ store✅, show, edit, delete /api => Report ( subject , examps ,  attendce ,...)
 
     General 
         School Information /api

@@ -16,3 +16,4 @@ export { default as YearCalender } from './academic years/YearCalender.jsx';
 export { default as ChangePassword } from './forget password/ChangePassword.jsx';
 export { default as SectionDetailsPage } from './sections/SectionDetailsPage.jsx';
 export { default as SubjectDetailPage } from './subjects/SubjectDetailPage.jsx';
+export { default as TimeSlots } from './timeSlots/TimeSlots.jsx'

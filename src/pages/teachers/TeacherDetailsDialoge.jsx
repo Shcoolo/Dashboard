@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -6,12 +6,20 @@ import {
   DialogActions,
   Button,
   TextField,
-  Grid,
   Typography,
   LinearProgress,
-  Box
-} from '@mui/material';
-import PropTypes from 'prop-types';
+  Box,
+  IconButton,
+  MenuItem,
+  CircularProgress,
+  Select,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
+import { Add, Delete } from "@mui/icons-material";
+import PropTypes from "prop-types";
+import { teacherSchema } from './teacherValidation';
+import { useSubjects } from "../../hooks/useSubjects";
 
 const TeacherDetailsDialoge = ({
   open,
@@ -22,37 +30,93 @@ const TeacherDetailsDialoge = ({
   confirmText = "Save",
   cancelText = "Cancel",
   confirmColor = "info",
-  loading = false
+  loading = false,
 }) => {
-  
-    const [formValues, setFormValues] = useState({
-    name: '',
-    description: ''
+  const [formValues, setFormValues] = useState({
+    first_name: "",
+    last_name: "",
+    phone_number: "",
+    specialization: "",
+    subjects_to_teach: [],
   });
+  const [errors, setErrors] = useState({});
+
+  const subjects = useSubjects();
+
 
   useEffect(() => {
     if (data) {
       setFormValues({
-        name: data.name || '',
-        description: data.description || ''
+        first_name: data.first_name || "",
+        last_name: data.last_name || "",
+        phone_number: data.phone_number || "",
+        specialization: data.specialization || "",
+        subjects_to_teach: data.subjects_to_teach || [],
       });
     } else {
       setFormValues({
-        name: '',
-        description: '',
+        first_name: "",
+        last_name: "",
+        phone_number: "",
+        specialization: "",
+        subjects_to_teach: [],
       });
     }
   }, [data, open]);
 
   const handleChange = (field, value) => {
-    setFormValues(prev => ({
+    setFormValues((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
-  const handleSubmit = () => {
-    onConfirm(formValues);
+  const handleSubjectChange = (index, field, value) => {
+    const newSubjects = [...formValues.subjects_to_teach];
+    newSubjects[index][field] = value;
+    setFormValues((prev) => ({
+      ...prev,
+      subjects_to_teach: newSubjects,
+    }));
+  };
+
+  const addSubject = () => {
+    setFormValues((prev) => ({
+      ...prev,
+      subjects_to_teach: [...prev.subjects_to_teach, { subject_id: "", weekly_hours: "" }],
+    }));
+  };
+
+  const removeSubject = (index) => {
+    const newSubjects = [...formValues.subjects_to_teach];
+    newSubjects.splice(index, 1);
+    setFormValues((prev) => ({
+      ...prev,
+      subjects_to_teach: newSubjects,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      await teacherSchema.validate(formValues, { abortEarly: false });
+      setErrors({});
+      onConfirm(formValues);
+    } catch (validationError) {
+      const newErrors = {};
+      validationError.inner.forEach((err) => {
+        if (err.path.includes("subjects_to_teach")) {
+          const match = err.path.match(/\[(\d+)\]\.(.*)/);
+          if (match) {
+            const index = match[1];
+            const field = match[2];
+            newErrors[`subjects_to_teach_${index}_${field}`] = err.message;
+          }
+        } else {
+          newErrors[err.path] = err.message;
+        }
+      });
+      setErrors(newErrors);
+    }
   };
 
   return (
@@ -62,35 +126,152 @@ const TeacherDetailsDialoge = ({
       maxWidth="sm"
       fullWidth
     >
-    {loading && <LinearProgress color="info" />}
-
+      {loading && <LinearProgress color="info" />}
       <DialogTitle>{title}</DialogTitle>
       <DialogContent dividers>
-        <Box>
-          <Box sx={{widht: '100%'}}>
-            <Typography variant="subtitle1" gutterBottom>
-              Teacher Name
+        <Box display="flex" flexDirection="column" gap={2}>
+          {/* name  */}
+          <Box sx={{display: 'flex' , gap: '10px'}}>
+            {/* First Name */}
+            <Box
+              sx={{
+                flex: "1 1 45%", 
+                minWidth: "250px",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Typography variant="subtitle2" gutterBottom>
+                First Name
+              </Typography>
+            <TextField
+              value={formValues.first_name}
+              onChange={(e) => handleChange("first_name", e.target.value)}
+              error={!!errors.first_name}
+              helperText={errors.first_name}
+              fullWidth
+            />
+            </Box>
+
+            {/* Last Name */}
+            <Box sx={{
+                flex: "1 1 45%", 
+                minWidth: "250px",
+                display: "flex",
+                flexDirection: "column",
+              }}>
+              <Typography variant="subtitle2" gutterBottom>
+                Last Name
+              </Typography>
+              <TextField
+                value={formValues.last_name}
+                onChange={(e) => handleChange("last_name", e.target.value)}
+                error={!!errors.last_name}
+                helperText={errors.last_name}
+                fullWidth
+              />
+            </Box>
+          </Box>
+
+          {/* Phone Number */}
+          <Box sx={{dislpaly: 'flex'}}>
+            <Typography variant="subtitle2" gutterBottom>
+              Phone Number
             </Typography>
             <TextField
+              value={formValues.phone_number}
+              onChange={(e) => handleChange("phone_number", e.target.value)}
+              error={!!errors.phone_number}
+              helperText={errors.phone_number}
               fullWidth
-              variant="outlined"
-              placeholder="Enter Teacher name"
-              value={formValues.name}
-              onChange={(e) => handleChange('name', e.target.value)}
+            />
+          </Box>
+          {/* Specialization */}
+          <Box sx={{display: 'flex', flexDirection: 'column'}}>
+            <Typography variant="subtitle2" gutterBottom>
+              Specialization
+            </Typography>
+            <TextField
+              value={formValues.specialization}
+              onChange={(e) => handleChange("specialization", e.target.value)}
+              error={!!errors.specialization}
+              helperText={errors.specialization}
+              fullWidth
             />
           </Box>
 
-          <Box my={1}>
-            <Typography variant="subtitle1" gutterBottom>
-            Description Teacher
-            </Typography>
-            <TextField
-              fullWidth
-              variant="outlined"
-               placeholder="Enter Description name"
-              value={formValues.description}
-              onChange={(e) => handleChange('description', e.target.value)}
-            />
+          {/* Subjects */}
+          <Box>
+            <Typography variant="subtitle1">Subjects to Teach</Typography>
+            {formValues.subjects_to_teach.map((subject, index) => (
+              <Box key={index} display="flex" gap={1} alignItems="center" my={1}>
+
+                <FormControl key={index} sx={{ width: "50%"}}>
+                  {/* <InputLabel id="subject-select-label">Subject</InputLabel> */}
+                  <Select
+                    labelId="subject-select-label"
+                    // label="Subject"
+                    id="subject-select"
+                    value={subject.subject_id}
+                    onChange={(e) => handleSubjectChange(index, 'subject_id', e.target.value)}
+                    helperText={errors[`subjects_to_teach_${index}_subject_id`]}
+                    placeholder="Select Class"
+                    sx={{fontFamily: 'Tajawal'}}
+                    displayEmpty
+                  >
+                    {/* placeholder  */}
+                    <MenuItem value="">
+                      <em>Select Subject</em>
+                    </MenuItem>
+  
+                    {subjects.isLoading && (
+                      <MenuItem disabled>
+                        <CircularProgress size={20} sx={{ mr: 1 }} /> Loading...
+                      </MenuItem>
+                    )}
+  
+                    {subjects.isError && (
+                      <MenuItem disabled>
+                        <Typography color="error">{subjects.error.message}</Typography>
+                      </MenuItem>
+                    )}
+  
+                    {subjects?.data?.length === 0 && (
+                      <MenuItem disabled>No subjects available</MenuItem>
+                    )}
+  
+                    {subjects?.data?.map((item) => (
+                      <MenuItem key={item.id} value={item.id} sx={{fontFamily: 'Tajawal'}}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+
+                <TextField
+                  label="Weekly Hours"
+                  type="number"
+                  value={subject.weekly_hours}
+                  onChange={(e) =>
+                    handleSubjectChange(index, "weekly_hours", e.target.value)
+                  }
+                  error={!!errors[`subjects_to_teach_${index}_weekly_hours`]}
+                  helperText={errors[`subjects_to_teach_${index}_weekly_hours`]}
+                  fullWidth
+                />
+                <IconButton onClick={() => removeSubject(index)} color="error">
+                  <Delete />
+                </IconButton>
+              </Box>
+            ))}
+            <Button
+              startIcon={<Add />}
+              onClick={addSubject}
+              variant="text"
+              sx={{ mt: 1 }}
+            >
+              Add Subject
+            </Button>
           </Box>
         </Box>
       </DialogContent>
@@ -121,8 +302,15 @@ TeacherDetailsDialoge.propTypes = {
   data: PropTypes.object,
   confirmText: PropTypes.string,
   cancelText: PropTypes.string,
-  confirmColor: PropTypes.oneOf(["primary", "error", "secondary", "success", "warning", "info"]),
-  loading: PropTypes.bool
+  confirmColor: PropTypes.oneOf([
+    "primary",
+    "error",
+    "secondary",
+    "success",
+    "warning",
+    "info",
+  ]),
+  loading: PropTypes.bool,
 };
 
 export default TeacherDetailsDialoge;

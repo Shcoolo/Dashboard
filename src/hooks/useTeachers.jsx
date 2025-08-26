@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteTeacher, indexTeachers, showTeacher, storeTeacher, updateTeacher } from '../api/teachers';
+import { deleteTeacher, indexTeachers, showTeacher, showTeachersBySubject, storeTeacher, updateTeacher } from '../api/teachers';
 
 // Fetch all teachers
 export const useTeachers = () => {
@@ -28,6 +28,7 @@ export const useAddTeacher = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['teachers'] });
     },
+    onError: (e) => {console.error(e);}
   });
 };
 
@@ -51,5 +52,16 @@ export const useDeleteTeacher = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['teachers'] });
     },
+     onError: (e) => {console.error(e);}
+  });
+};
+
+// Show Teachers By subject
+export const useTeachersBySubject = ({ subject }) => {
+  return useQuery({
+    queryKey: ['teachers', subject],
+    queryFn: () => showTeachersBySubject(subject),
+    enabled: !!subject,
+    select: (data) => data?.data,
   });
 };

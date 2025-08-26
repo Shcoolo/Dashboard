@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import { AcademicYears, 
   AdminstratorsList, 
-  ChangePassword, 
   ClassesList, 
   ForgetPassword, 
   Home, 
@@ -17,6 +16,7 @@ import { AcademicYears,
   SubjectsList, 
   TeachersList, 
   Terms, 
+  TimeSlots, 
   YearCalender
 } from "../pages";
 
@@ -93,6 +93,10 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <ProfilePage />
+      },
+      {
+        path: '/time-slots',
+        element: <TimeSlots />
       },
 
 
