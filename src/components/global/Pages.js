@@ -35,6 +35,11 @@ export const pages = [
                 path: 'teachers',
                 icon: PeopleOutlined
             }, 
+             {
+                title: 'Staff Management',
+                path: 'adminstrators',
+                icon: PeopleOutlined
+            },
         ]
     },
     // academices
@@ -84,8 +89,13 @@ export const pages = [
                 icon: PeopleOutlined
             }, 
             {
-                title: 'Exams & Grades',
-                path: 'exams',
+                title: 'Tasks & Exams',
+                path: 'tasks',
+                icon: PeopleOutlined,
+            },
+            {
+                title: 'Reports',
+                path: 'reports',
                 icon: PeopleOutlined,
             },
             {
@@ -109,12 +119,7 @@ export const pages = [
     // settings
     {
         name: "Settings",
-        property: [
-            {
-                title: 'Adminstrators',
-                path: 'adminstrators',
-                icon: PeopleOutlined
-            },  
+        property: [  
             {
                 title: 'Profile',
                 path: 'profile',

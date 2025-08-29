@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -6,14 +6,14 @@ import {
   DialogActions,
   Button,
   TextField,
-  Grid,
   Typography,
   LinearProgress,
   Box
-} from '@mui/material';
-import PropTypes from 'prop-types';
+} from "@mui/material";
+import PropTypes from "prop-types";
+import { adminSchema } from './adminValidation';
 
-const AdminstratorDetailsDialoge = ({
+const TeacherDetailsDialoge = ({
   open,
   onClose,
   onConfirm,
@@ -22,37 +22,56 @@ const AdminstratorDetailsDialoge = ({
   confirmText = "Save",
   cancelText = "Cancel",
   confirmColor = "info",
-  loading = false
+  loading = false,
 }) => {
-  
-    const [formValues, setFormValues] = useState({
-    name: '',
-    description: ''
+  const [formValues, setFormValues] = useState({
+    first_name: "",
+    last_name: "",
+    phone_number: "",
+    department: "",
   });
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (data) {
       setFormValues({
-        name: data.name || '',
-        description: data.description || ''
+        first_name: data.first_name || "",
+        last_name: data.last_name || "",
+        phone_number: data.phone_number || "",
+        department: data.department || "",
       });
     } else {
       setFormValues({
-        name: '',
-        description: '',
+        first_name: "",
+        last_name: "",
+        phone_number: "",
+        department: "",
       });
     }
   }, [data, open]);
 
   const handleChange = (field, value) => {
-    setFormValues(prev => ({
+    setFormValues((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
-  const handleSubmit = () => {
-    onConfirm(formValues);
+
+  const handleSubmit = async () => {
+    try {
+      await adminSchema.validate(formValues, { abortEarly: false });
+      setErrors({});
+      onConfirm(formValues);
+    } catch (validationError) {
+     if (validationError.inner) {
+        const formErrors = {};
+        validationError.inner.forEach((err) => {
+          formErrors[err.path] = [err.message]; // using array to match your helperText logic
+        });
+        setErrors(formErrors);
+      }
+    }
   };
 
   return (
@@ -62,36 +81,81 @@ const AdminstratorDetailsDialoge = ({
       maxWidth="sm"
       fullWidth
     >
-    {loading && <LinearProgress color="info" />}
-
+      {loading && <LinearProgress color="info" />}
       <DialogTitle>{title}</DialogTitle>
       <DialogContent dividers>
-        <Box>
-          <Box sx={{widht: '100%'}}>
-            <Typography variant="subtitle1" gutterBottom>
-              Adminstrator Name
+        <Box display="flex" flexDirection="column" gap={2}>
+          {/* name  */}
+          <Box sx={{display: 'flex' , gap: '10px'}}>
+            {/* First Name */}
+            <Box
+              sx={{
+                flex: "1 1 45%", 
+                minWidth: "250px",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Typography variant="subtitle2" gutterBottom>
+                First Name
+              </Typography>
+            <TextField
+              value={formValues.first_name}
+              onChange={(e) => handleChange("first_name", e.target.value)}
+              error={!!errors.first_name}
+              helperText={errors.first_name}
+              fullWidth
+            />
+            </Box>
+
+            {/* Last Name */}
+            <Box sx={{
+                flex: "1 1 45%", 
+                minWidth: "250px",
+                display: "flex",
+                flexDirection: "column",
+              }}>
+              <Typography variant="subtitle2" gutterBottom>
+                Last Name
+              </Typography>
+              <TextField
+                value={formValues.last_name}
+                onChange={(e) => handleChange("last_name", e.target.value)}
+                error={!!errors.last_name}
+                helperText={errors.last_name}
+                fullWidth
+              />
+            </Box>
+          </Box>
+
+          {/* Phone Number */}
+          <Box sx={{dislpaly: 'flex'}}>
+            <Typography variant="subtitle2" gutterBottom>
+              Phone Number
             </Typography>
             <TextField
+              value={formValues.phone_number}
+              onChange={(e) => handleChange("phone_number", e.target.value)}
+              error={!!errors.phone_number}
+              helperText={errors.phone_number}
               fullWidth
-              variant="outlined"
-              placeholder="Enter Adminstrator name"
-              value={formValues.name}
-              onChange={(e) => handleChange('name', e.target.value)}
             />
           </Box>
 
-          <Box my={1}>
-            <Typography variant="subtitle1" gutterBottom>
-            Description Adminstrator
+          {/* Department */}
+          <Box sx={{display: 'flex', flexDirection: 'column'}}>
+            <Typography variant="subtitle2" gutterBottom>
+              Department
             </Typography>
             <TextField
+              value={formValues.department}
+              onChange={(e) => handleChange("department", e.target.value)}
+              error={!!errors.department}
+              helperText={errors.department}
               fullWidth
-              variant="outlined"
-               placeholder="Enter Description name"
-              value={formValues.description}
-              onChange={(e) => handleChange('description', e.target.value)}
             />
           </Box>
+
         </Box>
       </DialogContent>
 
@@ -113,7 +177,7 @@ const AdminstratorDetailsDialoge = ({
   );
 };
 
-AdminstratorDetailsDialoge.propTypes = {
+TeacherDetailsDialoge.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
@@ -121,8 +185,15 @@ AdminstratorDetailsDialoge.propTypes = {
   data: PropTypes.object,
   confirmText: PropTypes.string,
   cancelText: PropTypes.string,
-  confirmColor: PropTypes.oneOf(["primary", "error", "secondary", "success", "warning", "info"]),
-  loading: PropTypes.bool
+  confirmColor: PropTypes.oneOf([
+    "primary",
+    "error",
+    "secondary",
+    "success",
+    "warning",
+    "info",
+  ]),
+  loading: PropTypes.bool,
 };
 
-export default AdminstratorDetailsDialoge;
+export default TeacherDetailsDialoge;

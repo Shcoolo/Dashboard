@@ -1,6 +1,6 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Chip, Stack } from "@mui/material";
 import { ConfirmationDialoge, TableComponent, TitleBar } from "../../components";
-import { Add, Delete, Edit, RemoveRedEyeOutlined } from "@mui/icons-material";
+import { Add, Cancel, CheckCircle, Delete, Edit, RemoveRedEyeOutlined } from "@mui/icons-material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useAddTeacher, useTeachers, useDeleteTeacher, useUpdateTeacher } from "../../hooks/useTeachers";
 import { useState } from "react";
@@ -51,7 +51,7 @@ export default function TeachersList() {
       open: true,
       onConfirm: () => { deleteTeacherMutation.mutate({id: teacherInfo.row.id },{ onSuccess: closeDialoge })},
       title: "Delete Teacher?",
-      description: `Are you sure of delete teacher ${teacherInfo.row.full_name}`,
+      description: `Are you sure of delete teacher ${teacherInfo.row.first_name} ${teacherInfo?.row?.last_name}`,
       confirmText: "Delete",
       cancelText: "Cancel",
       confirmColor: "error",
@@ -84,17 +84,35 @@ export default function TeachersList() {
     }))
   };
 
-  const apiRows = teachers;
-  const rows = apiRows?.map( (row) => (
-    {
-      ...row,
-      id: row.user_id
-    }
-  ))
+  const rows = teachers;
 
   const columns = [
     { field: 'id', headerName:'ID', width: 70 , align: 'center', headerAlign: 'center'},
-    { field: 'full_name', headerName: 'Name', flex: 1, headerAlign: 'center', align: 'center'},
+    { field: 'first_name', headerName: 'First Name', flex: 1, headerAlign: 'center', align: 'center'},
+    { field: 'last_name', headerName: 'Last Name', flex: 1, headerAlign: 'center', align: 'center'},
+    { field: 'phone_number', headerName: 'Phone Number', flex: 1, headerAlign: 'center', align: 'center'},
+    { field: 'is_active', headerName: 'Status', flex: 1, headerAlign: 'center', align: 'center',
+      renderCell: (params) => {
+        const isActive = params?.value;
+        return (
+          <Chip
+            icon={isActive?<CheckCircle />:<Cancel />}
+            label={isActive?"Active":"Inactive"}
+            color={isActive?"success":"error"}
+            variant="outlined"
+            sx={{ mt: 1 }}
+        />
+        );
+      }
+    },
+    { field: 'address', headerName: 'Address', flex: 1, headerAlign: 'center', align: 'center',
+      valueFormatter: (params) => {
+        if(params){
+          return params.value;
+        }
+        return '-';
+      }
+    },
     { field: 'specialization', headerName: 'Specialization', flex: 2, headerAlign: 'center', align: 'center'},
     {
       field: "actions",

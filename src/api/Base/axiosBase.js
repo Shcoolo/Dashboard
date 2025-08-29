@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from "../../utils/storage";
 import { toast } from 'react-toastify';
-
+import '../../index.css'
 // axios stacture with base url for all program
 const axiosBase = axios.create({
     baseURL: 'http://127.0.0.1:8000/en/api',
@@ -22,15 +22,19 @@ axiosBase.interceptors.response.use(
   response => {
     const msg = response?.data?.message;
     if(msg){
-      toast.success(msg);
+      toast.success(msg, {
+        className: 'font'
+      });
     }
      return response;
   },
   error => {
     console.log('error' + error);
-    const serverMessage = error?.response?.data?.detail || error?.response?.data?.message;
+    const serverMessage = error?.response?.data?.detail || error?.response?.data?.error || error?.response?.data?.message;
     const msg = serverMessage || error?.message || 'Error Response';
-    toast.error(msg);
+    toast.error(msg, {
+      className: 'font'
+    });
     return Promise.reject(error);
   }
 );

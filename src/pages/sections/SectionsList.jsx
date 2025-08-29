@@ -1,6 +1,6 @@
-import { Alert, Box, Chip, CircularProgress, FormControl, InputLabel, MenuItem, Select, Stack, Typography, useTheme } from "@mui/material";
+import { Alert, Box, Chip, CircularProgress, FormControl, InputLabel, MenuItem, Select, Stack, Tooltip, Typography, useTheme } from "@mui/material";
 import { ConfirmationDialoge, TableComponent, TitleBar } from "../../components";
-import { Add, Cancel, CheckCircle, Delete, Edit, RemoveRedEyeOutlined } from "@mui/icons-material";
+import { Add, Cancel, CheckCircle, Delete, Edit, People, RemoveRedEyeOutlined } from "@mui/icons-material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useAddSection, useSections, useDeleteSection, useUpdateSection } from "../../hooks/useSections";
 import { useState } from "react";
@@ -156,6 +156,15 @@ export default function SectionsList() {
       flex: 2,
       getActions: (params) => [
         <GridActionsCellItem
+          icon={
+            <Tooltip title="Show Students in Section">
+              <People sx={{color: '#05e6ff', border: '1px solid #05e6ff', borderRadius: '50%', fontSize: 30, p: 0.5 }}/>
+            </Tooltip>
+          }
+          lable="Show Student Section"
+          onClick={() => navigate(`/section/${params.row.id}/students`)}
+        />,
+        <GridActionsCellItem
           icon={<RemoveRedEyeOutlined sx={{color: 'white', border: '1px solid white', borderRadius: '50%', fontSize: 30, p: 0.5 }} />}
           label="Show Detials"
           onClick={() => navigate(`/section/${params.row.id}`)}
@@ -177,7 +186,6 @@ export default function SectionsList() {
   const selectClass = (e) => {
     const value = e.target.value || null;
     setClassI(value);
-    
   }
 
  

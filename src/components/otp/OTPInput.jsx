@@ -78,7 +78,7 @@ const OTPInput = ({ phone_number, purpose , setOrder}) => {
       </Stack>
 
       <Typography variant="h6" gutterBottom sx={{color: 'blue', my:3}}>
-        Enter the 5-digit verification code
+        Enter the 6-digit verification code
       </Typography>
     </Box>
   );

@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteSection, indexSections, indexSectionsByClass, showSection, storeSection, updateSection } from '../api/sections';
 
 // Fetch all sectiones
-export const useSections = ({ classId = null, filter = ''}) => {
+export const useSections = ({ classId = '', filter = ''}) => {
   return useQuery({
     queryKey: ['sections', classId, filter],
     queryFn: classId?()=>indexSectionsByClass(classId) : () => indexSections(filter),

@@ -49,7 +49,7 @@ export default function AdminstratorsList() {
       open: true,
       onConfirm: () => { deleteAdminstratorMutation.mutate({id: adminstratorInfo.row.id },{ onSuccess: closeDialoge })},
       title: "Delete Adminstrator?",
-      description: `Are you sure of delete adminstrator ${adminstratorInfo.row.name}`,
+      description: `Are you sure of delete adminstrator ${adminstratorInfo.row.first_name} ${adminstratorInfo?.row?.last_name}`,
       confirmText: "Delete",
       cancelText: "Cancel",
       confirmColor: "error",
@@ -82,12 +82,21 @@ export default function AdminstratorsList() {
     }))
   };
 
-  const rows = adminstrators;
+  const apiRows = adminstrators;
+  const rows = apiRows?.map( (row) => (
+    {
+      ...row,
+      id: row.user_id
+    }
+  ))
 
   const columns = [
     { field: 'id', headerName:'ID', width: 70 , align: 'center', headerAlign: 'center'},
-    { field: 'name', headerName: 'Name', flex: 1, headerAlign: 'center', align: 'center'},
-    { field: 'description', headerName: 'Description', flex: 2, headerAlign: 'center', align: 'center'},
+    { field: 'first_name', headerName: 'First Name', flex: 1, headerAlign: 'center', align: 'center'},
+    { field: 'last_name', headerName: 'Last Name', flex: 1, headerAlign: 'center', align: 'center'},
+    { field: 'phone_number', headerName: 'Phone Number', flex: 1, headerAlign: 'center', align: 'center'},
+    { field: 'department', headerName: 'Department', flex: 1, headerAlign: 'center', align: 'center'},
+    
     {
       field: "actions",
       headerName: "Actions",

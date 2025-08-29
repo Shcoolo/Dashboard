@@ -2,20 +2,26 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import { AcademicYears, 
   AdminstratorsList, 
+  AttendancePage, 
   ClassesList, 
   ForgetPassword, 
   Home, 
   Login, 
   NotFound, 
   ProfilePage,
+  ReportPage,
   SchoolInformation, 
   SectionDetailsPage, 
   SectionsList, 
+  StudentDetailsPage, 
+  StudentsBySection, 
   StudentsList, 
   SubjectDetailPage, 
   SubjectsList, 
+  TasksList, 
   TeachersList, 
   Terms, 
+  Test, 
   TimeSlots, 
   YearCalender
 } from "../pages";
@@ -59,6 +65,10 @@ const router = createBrowserRouter([
         element: <StudentsList />,
       },
       {
+        path: '/student/:id',
+        element: <StudentDetailsPage />
+      },
+      {
         path: '/information',
         element: <SchoolInformation />
       },
@@ -73,6 +83,10 @@ const router = createBrowserRouter([
       {
         path: '/section/:id',
         element: <SectionDetailsPage />,
+      },
+      {
+        path: '/section/:id/students',
+        element: <StudentsBySection />,
       },
       {
         path: '/subjects',
@@ -98,11 +112,26 @@ const router = createBrowserRouter([
         path: '/time-slots',
         element: <TimeSlots />
       },
+      {
+        path: '/tasks',
+        element: <TasksList />
+      },
+      {
+        path: '/attendance',
+        element: <AttendancePage />
+      },
+      {
+        path: '/reports',
+        element: <ReportPage />
+      },
 
 
 
 
-
+      {
+        path: 'test',
+        element: <Test />
+      },
       // old pages
       {
         path: "/team",

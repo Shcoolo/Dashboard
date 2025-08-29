@@ -17,3 +17,9 @@ export { default as ChangePassword } from './forget password/ChangePassword.jsx'
 export { default as SectionDetailsPage } from './sections/SectionDetailsPage.jsx';
 export { default as SubjectDetailPage } from './subjects/SubjectDetailPage.jsx';
 export { default as TimeSlots } from './timeSlots/TimeSlots.jsx'
+export { default as TasksList } from './tasks/TasksList.jsx';
+export { default as AttendancePage } from './Supervise Sections/AttendancePage.jsx'
+export { default as Test } from './Test.jsx';
+export { default as StudentsBySection } from './sections/StudentsBySection.jsx'
+export { default as StudentDetailsPage } from './students/StudentDetailsPage.jsx';
+export { default as ReportPage } from './reports/ReportsPage.jsx';

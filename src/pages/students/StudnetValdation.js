@@ -4,8 +4,11 @@ export const studentValidation = object(
   {
     phone_number: string().required("Phone number is required")
       .matches(/^[0-9]{10}$/, "Enter a valid phone number, start with 09"),
-    password: string().required("password is required")
-      .min(8, "Password must be at least 8 characters"),
+    password: string().nullable().test(
+    "password-length",
+    "Password must be at least 8 characters",
+    (value) => !value || value.length >= 8
+    ),
     first_name: string().required("first name is required"),
     last_name: string().required("last name is required"),
     father_name: string(),

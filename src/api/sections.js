@@ -2,8 +2,12 @@ import axiosBase from "./Base/axiosBase";
 
 export const indexSections = async(streamFilter) => {
     try{
+        const params = {}
+        if(streamFilter){
+            params.stream_type = streamFilter
+        }
         const response = await axiosBase.get(`/class/sections/`, {
-            params: { 'stream_type': streamFilter}
+            params
         });
         return response;
     }

@@ -2,7 +2,9 @@ import axiosBase from "./Base/axiosBase";
 
 export const indexTerms = async (yearId) => {
     try{
-        const response = await axiosBase.get(`/academic/terms/${yearId?`?year_id=${yearId}`:''}`);
+        const response = await axiosBase.get(`/academic/terms/`,{
+           params: { 'year_id': yearId }
+        });
         return response;
     }
     catch(error){

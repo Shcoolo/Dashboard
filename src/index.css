@@ -21,6 +21,12 @@ body,
   font-style: normal;
 }
 
+.font {
+  font-family: "Tajawal", "Source Sans Pro", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .app {
   display: flex;
   position: relative;

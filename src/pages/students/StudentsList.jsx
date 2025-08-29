@@ -12,7 +12,7 @@ import { blue, pink } from "@mui/material/colors";
 export default function StudentsList() {
 
   
-  const { data: students, isLoading, isError, error } = useStudents();
+  const { data: students, isLoading, isError, error } = useStudents('');
   const addStudentMutation = useAddStudent();
   const deleteStudentMutation = useDeleteStudent();
   const editStudentMutation = useUpdateStudent();
@@ -52,7 +52,7 @@ export default function StudentsList() {
       open: true,
       onConfirm: () => { deleteStudentMutation.mutate({id: studentInfo.row.id },{ onSuccess: closeDialoge })},
       title: "Delete Student?",
-      description: `Are you sure of delete student ${studentInfo.row.name}`,
+      description: `Are you sure of delete student ${studentInfo.row.first_name} ${studentInfo?.row?.last_name}`,
       confirmText: "Delete",
       cancelText: "Cancel",
       confirmColor: "error",
@@ -101,15 +101,14 @@ export default function StudentsList() {
       return (
         <Chip 
           label={params.value} 
-          color={isMale ? blue[500]:pink[500]} 
+          sx={{ color:isMale?blue[500]:pink[500], borderColor: isMale?blue[500]:pink[500], fontWeight: "bold", px: 1.5  }} 
           variant="outlined"
-          sx={{ fontWeight: "bold", px: 1.5 }}
         />
       );
     }
     },
-    { field: 'student_class', headerName: 'Class', flex: 1, headerAlign: 'center', align: 'center'},
-    { field: 'section', headerName: 'Section', flex: 1, headerAlign: 'center', align: 'center'},
+    { field: 'class_name', headerName: 'Class', flex: 1, headerAlign: 'center', align: 'center'},
+    { field: 'section_name', headerName: 'Section', flex: 1, headerAlign: 'center', align: 'center'},
     {
       field: "register_status",
       headerName: "Register Status",

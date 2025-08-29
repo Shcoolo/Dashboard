@@ -2,10 +2,10 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteStudent, indexStudents, showStudent, storeStudent, updateStudent } from '../api/students';
 
 // Fetch all studentes
-export const useStudents = () => {
+export const useStudents = ({section = ''}) => {
   return useQuery({
-    queryKey: ['students'],
-    queryFn: indexStudents,
+    queryKey: ['students', section || "all"],
+    queryFn: () => indexStudents({section: section}),
     select: (data) => data?.data,
   });
 };

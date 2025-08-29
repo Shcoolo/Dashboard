@@ -17,7 +17,7 @@ const ToastNotificaton = () => {
       draggable
       pauseOnHover
       theme={mode}
-      style={{ zIndex: 9999 }}
+      style={{ zIndex: 9999 , fontFamily: "Tajawal" }}
     />
   );
 }

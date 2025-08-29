@@ -51,7 +51,7 @@ const SectionDetailsPage = () => {
   return (
     <Box p={3}>
       <Stack spacing={3} >
-        <TitleBar title={"Section Detail"}
+        <TitleBar title={section?.name || "Section Detail"}
             button={'Back'}
             buttonType='outlined'
             buttonColor='white'
