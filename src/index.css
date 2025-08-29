@@ -27,6 +27,10 @@ body,
   font-style: normal;
 }
 
+.Toastify__toast {
+  font-family: 'Tajawal', sans-serif !important;
+}
+
 .app {
   display: flex;
   position: relative;

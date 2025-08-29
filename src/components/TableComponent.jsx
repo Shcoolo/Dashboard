@@ -5,7 +5,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { CloudCircleSharp, Search } from '@mui/icons-material';
 import SearchTable from './SearchTable';
 
-const TableComponent = ({rows, columns, loading, showSearch = true, pagination = true}) => {
+const TableComponent = ({rows, columns, loading, showSearch = true, pagination = false}) => {
     const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 

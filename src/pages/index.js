@@ -23,3 +23,6 @@ export { default as Test } from './Test.jsx';
 export { default as StudentsBySection } from './sections/StudentsBySection.jsx'
 export { default as StudentDetailsPage } from './students/StudentDetailsPage.jsx';
 export { default as ReportPage } from './reports/ReportsPage.jsx';
+export { default as TeacherDetailsPage } from './teachers/TeacherDetailsPage.jsx';
+export { default as TeacherAnnouncements } from './Announcements/TeacherAnnouncements.jsx';
+export { default as StudentAnnouncements } from './Announcements/StudentAnnouncements.jsx';

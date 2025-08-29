@@ -13,12 +13,15 @@ import { AcademicYears,
   SchoolInformation, 
   SectionDetailsPage, 
   SectionsList, 
+  StudentAnnouncements, 
   StudentDetailsPage, 
   StudentsBySection, 
   StudentsList, 
   SubjectDetailPage, 
   SubjectsList, 
   TasksList, 
+  TeacherAnnouncements, 
+  TeacherDetailsPage, 
   TeachersList, 
   Terms, 
   Test, 
@@ -101,6 +104,10 @@ const router = createBrowserRouter([
         element: <TeachersList />
       },
       {
+        path: '/teacher/:id',
+        element: <TeacherDetailsPage />
+      },
+      {
         path: '/adminstrators',
         element: <AdminstratorsList />
       },
@@ -123,6 +130,14 @@ const router = createBrowserRouter([
       {
         path: '/reports',
         element: <ReportPage />
+      },
+      {
+        path: '/teacher-announcements',
+        element: <TeacherAnnouncements />,
+      },
+      {
+        path: '/student-announcements',
+        element: <StudentAnnouncements />,
       },
 
 

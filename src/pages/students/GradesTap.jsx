@@ -21,7 +21,7 @@ const GradesTap = ({ studentId }) => {
                         Total Avarge
                     </Typography>
                     <Typography variant="h2" gutterBottom>
-                       { totalAvarage?.data?.overall_average ?? 0 }
+                       { `${totalAvarage?.data?.overall_average?? 75}%` }
                     </Typography>
                 </Card>
             </CardContent>

@@ -1,11 +1,11 @@
-import { Home, PeopleOutlined, Settings } from '@mui/icons-material'
+import { AccessTime, Assessment, AssignmentInd, BarChartOutlined, CalendarTodayOutlined, CalendarViewWeek, Campaign, CommentBank, CoPresent, Hail, Home, LocalConvenienceStoreOutlined, People, PeopleOutline, PeopleOutlined, PieChartOutlineOutlined, School, Settings, Task, TimelineOutlined, ViewWeek } from '@mui/icons-material'
 
 export const pages = [
     // home
     {
         property: [
             {
-                title: 'Home Page',
+                title: 'Dashboard',
                 path: '',
                 icon: Home,
             }
@@ -28,17 +28,17 @@ export const pages = [
             {
                 title: 'Students Managment',
                 path: 'students',
-                icon: PeopleOutlined
+                icon: Hail
             },
             {
                 title: 'Teachers Management',
                 path: 'teachers',
-                icon: PeopleOutlined
+                icon: People
             }, 
              {
                 title: 'Staff Management',
                 path: 'adminstrators',
-                icon: PeopleOutlined
+                icon: PeopleOutline
             },
         ]
     },
@@ -49,83 +49,96 @@ export const pages = [
             {
                 title: 'Academic years',
                 path: 'academic-years',
-                icon: PeopleOutlined
+                icon: CalendarViewWeek
             }, 
             {
                 title: 'Academic Terms',
                 path: 'academic-terms',
-                icon: PeopleOutlined
+                icon: ViewWeek
+            },
+            {
+                title: 'Time Slots',
+                path: 'time-slots',
+                icon: AccessTime,
             },
             {
                 title: 'Classes',
                 path: 'classes',
-                icon: PeopleOutlined
+                icon: AssignmentInd
             },
             {
                 title: 'Sections',
                 path: 'sections',
-                icon: PeopleOutlined
+                icon: LocalConvenienceStoreOutlined
             }, 
             {
-                title: 'Time Slots',
-                path: 'time-slots',
-                icon: PeopleOutlined,
+                title: 'Calendar',
+                path: 'calendar',
+                icon: CalendarTodayOutlined
             },
-
         ]
     },
     // admin
     {
-        name: "admin",
+        name: "SuperVising",
         property: [
             {
                 title: 'Attendance',
                 path: 'attendance',
-                icon: PeopleOutlined,
+                icon: CoPresent,
             },
             {
                 title: 'Subjects',
                 path: 'subjects',
-                icon: PeopleOutlined
+                icon: School
             }, 
             {
                 title: 'Tasks & Exams',
                 path: 'tasks',
-                icon: PeopleOutlined,
+                icon: Task,
             },
             {
                 title: 'Reports',
                 path: 'reports',
-                icon: PeopleOutlined,
+                icon: Assessment,
             },
-            {
-                title: 'Library',
-                path: 'library',
-                icon: PeopleOutlined
-            }
         ]
     },
     // communication
     {
         name: "Communication",
         property: [
+              {
+                title: 'Teacher Announcements',
+                path: 'teacher-announcements',
+                icon: CommentBank,
+            },
             {
-                title: 'Announcements',
-                path: 'announcements',
-                icon: PeopleOutlined,
+                title: 'Student Announcements',
+                path: 'student-announcements',
+                icon: Campaign,
             },
         ]
     },
-    // settings
+    // view 
     {
-        name: "Settings",
-        property: [  
+        name: "View",
+        property: [
             {
-                title: 'Profile',
-                path: 'profile',
-                icon: PeopleOutlined,
-            } 
+                title: 'Chart',
+                path: 'bar',
+                icon: BarChartOutlined,
+            },
+            {
+                title: 'Pie',
+                path: 'pie',
+                icon: PieChartOutlineOutlined,
+            },
+            {
+                title: 'Line',
+                path: 'line',
+                icon: TimelineOutlined
+            },
         ]
-
-    },
+    }
 ]
